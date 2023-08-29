@@ -12,9 +12,9 @@
             <div class="card card-plain">
                 <h4 class="font-weight-bolder text-center">
                     @can('superadmin')
-                        Form Daftar Akun Instruktur
+                        Form Daftar Akun Petani
                     @endcan
-                    @can('instruktur')
+                    @can('petani')
                         Form Daftar Akun Siswa
                     @endcan
                 </h4>
@@ -56,7 +56,7 @@
                                 </span>
                             @enderror
                         </div>
-                        @can('instruktur')
+                        @can('petani')
                         <div class="input-group input-group-outline mb-3">
                             <label class="form-label {{ old('angkatan') ? 'active' : '' }}">Angkatan</label>
                             <input type="number" id="angkatan" name="angkatan"
@@ -84,9 +84,9 @@
                             <label class="form-label"></label>
                             <select class="form-control has-feedback-right" id="role" name="role" value="{{ old('role') }}">
                                 @can('superadmin')
-                                <option value="Instruktur"></option>
+                                <option value="Petani"></option>
                                 @endcan
-                                @can('instruktur')
+                                @can('petani')
                                 <option value="Siswa">Siswa</option>
                                 @endcan
                             </select>

@@ -48,8 +48,8 @@ class UserController extends Controller
         $data = [];
 
         if ($role_akun == 'Superadmin') {
-            $query = $collectionReference->where('role', '=', 'Instruktur')->orderBy('name');
-        } elseif ($role_akun == 'Instruktur') {
+            $query = $collectionReference->where('role', '=', 'Petani')->orderBy('name');
+        } elseif ($role_akun == 'Petani') {
             $query = $collectionReference->where('didaftarkan_oleh', '=', $nama_akun)->orderBy('name', 'asc');
         } else {
             $query = $collectionReference->orderBy('name');
@@ -139,7 +139,7 @@ class UserController extends Controller
                     'name' => $request->input('name'),
                     'nomor_induk' => $request->input('nomor_induk'),
                     'angkatan' => $request->input('angkatan'),
-                    'role' => 'Instruktur',
+                    'role' => 'Petani',
                     'didaftarkan_oleh' => $name,
                     'image' => 'https://firebasestorage.googleapis.com/v0/b/kopi-sinarindo.appspot.com/o/images%2Frobusta.png?alt=media&token=3b08a3a3-297a-4d34-814c-b941a70ff3ef'
                 ];
@@ -153,14 +153,14 @@ class UserController extends Controller
                     'email' => $request->input('email'),
                     'nomor_induk' => $request->input('nomor_induk'),
                     'angkatan' => $request->input('angkatan'),
-                    'role' => 'Instruktur',
+                    'role' => 'Petani',
                     'didaftarkan_oleh' => $name,
                     'image' => 'https://firebasestorage.googleapis.com/v0/b/kopi-sinarindo.appspot.com/o/images%2Frobusta.png?alt=media&token=3b08a3a3-297a-4d34-814c-b941a70ff3ef'
                 ]);
     
                 Alert::success('Akun baru berhasil ditambahkan');
                 return redirect()->route('user.index');
-            } elseif($role_akun == 'Instruktur'){
+            } elseif($role_akun == 'Petani'){
                 $userProperties = [
                     'email' => $request->input('email'),
                     'password' => $request->input('password'),

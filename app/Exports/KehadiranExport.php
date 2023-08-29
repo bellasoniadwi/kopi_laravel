@@ -41,8 +41,8 @@ class KehadiranExport implements FromCollection, WithHeadings
 
         if ($role_akun == 'Superadmin') {
             $query = $collectionReference->orderBy('name');
-        } elseif ($role_akun == 'Instruktur') {
-            $query = $collectionReference->where('instruktur', '=', $nama_akun);
+        } elseif ($role_akun == 'Petani') {
+            $query = $collectionReference->where('petani', '=', $nama_akun);
         } else {
             $query = $collectionReference->orderBy('name');
         }
