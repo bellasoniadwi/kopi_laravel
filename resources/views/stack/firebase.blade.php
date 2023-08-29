@@ -1,18 +1,29 @@
 <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-firestore.js"></script>
-<script>
-    // Initialize Firebase
+<script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.3.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.3.0/firebase-analytics.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
     const firebaseConfig = {
-        apiKey: "AIzaSyAufimqkLWvPtzEc-g-gsxlPN96fR8m8Tc",
-        authDomain: "kopi-sinarindo.firebaseapp.com",
-        projectId: "kopi-sinarindo",
-        storageBucket: "kopi-sinarindo.appspot.com",
-        messagingSenderId: "507940483635",
-        appId: "1:507940483635:web:fcbb34eb003eef453d6946",
-        measurementId: "G-NLEC59ZXP5"
+      apiKey: "AIzaSyAufimqkLWvPtzEc-g-gsxlPN96fR8m8Tc",
+      authDomain: "kopi-sinarindo.firebaseapp.com",
+      projectId: "kopi-sinarindo",
+      storageBucket: "kopi-sinarindo.appspot.com",
+      messagingSenderId: "507940483635",
+      appId: "1:507940483635:web:fcbb34eb003eef453d6946",
+      measurementId: "G-NLEC59ZXP5"
     };
-    firebase.initializeApp(config);
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    
     var facebookProvider = new firebase.auth.FacebookAuthProvider();
     var googleProvider = new firebase.auth.GoogleAuthProvider();
     var facebookCallbackLink = '/login/facebook/callback';

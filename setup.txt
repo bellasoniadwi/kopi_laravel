@@ -1,9 +1,15 @@
-npm install firebase
-edit sdk in resources\views\stack\firebase.blade.php
+
 composer update
 php artisan key:generate
 composer require laravel/ui
 php artisan ui bootstrap --auth
 npm install && npm run dev
+
+//FIREBASE
+npm install firebase
+edit sdk in resources\views\stack\firebase.blade.php
 composer require kreait/laravel-firebase
 php artisan vendor:publish --provider="Kreait\Laravel\Firebase\ServiceProvider" --tag=config
+
+
+//MAATWEBSITE EXCEL

@@ -8,7 +8,9 @@ return [
      * Default Firebase project
      * ------------------------------------------------------------------------
      */
-    'default' => env('FIREBASE_PROJECT', 'app'),
+    'project_id' => 'kopi-sinarindo',
+    'private_key' => base_path('kopi-sinarindo-firebase-adminsdk-1efze-b0e01f4296.json'),
+    'default' => env('FIREBASE_PROJECT', 'Kopi-Sinarindo'),
 
     /*
      * ------------------------------------------------------------------------
@@ -16,7 +18,7 @@ return [
      * ------------------------------------------------------------------------
      */
     'projects' => [
-        'app' => [
+        'Kopi-Sinarindo' => [
             /*
              * ------------------------------------------------------------------------
              * Credentials / Service Account
@@ -47,7 +49,7 @@ return [
              *
              */
             'credentials' => [
-                'file' => env('FIREBASE_CREDENTIALS', env('GOOGLE_APPLICATION_CREDENTIALS')),
+                'file' => base_path('kopi-sinarindo-firebase-adminsdk-1efze-b0e01f4296.json'),
             ],
 
             /*
