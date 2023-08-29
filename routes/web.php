@@ -1,7 +1,5 @@
 <?php
 
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UserController;
@@ -26,7 +24,7 @@ Route::get('/email/verify', [ResetController::class, 'verify_email'])->name('ver
 Route::get('/password/reset', [ResetController::class, 'index'])->name('index');
 Route::post('/password/reset/store', [ResetController::class, 'store'])->name('store');
 
-// Route::group(['middleware' => ['auth', 'notsiswa']], function () {
+Route::group(['middleware' => ['auth', 'notsiswa']], function () {
     Route::get('/', [HomeController::class, 'dashboard'])->name('dashboard');
 
     // index
@@ -53,7 +51,7 @@ Route::post('/password/reset/store', [ResetController::class, 'store'])->name('s
 
     
     
-// });
+});
 
 
 Route::get('/not-authorize', [HomeController::class, 'notauthorize'])->name('notauthorize');

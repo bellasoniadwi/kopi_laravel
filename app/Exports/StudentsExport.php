@@ -57,8 +57,8 @@ class StudentsExport implements FromCollection, WithHeadings
 
         if ($role_akun == 'Superadmin') {
             $query = $collectionReference->orderBy('name');
-        } elseif ($role_akun == 'Petani') {
-            $query = $collectionReference->where('petani', '=', $nama_akun);
+        } elseif ($role_akun == 'Instruktur') {
+            $query = $collectionReference->where('instruktur', '=', $nama_akun);
         } else {
             $query = $collectionReference->orderBy('name');
         }
@@ -71,7 +71,7 @@ class StudentsExport implements FromCollection, WithHeadings
             $id = $doc->id();
             $name = $documentData['name'] ?? null;
             $keterangan = $documentData['keterangan'] ?? null;
-            $petani = $documentData['petani'] ?? null;
+            $instruktur = $documentData['instruktur'] ?? null;
             $timestamps = $documentData['timestamps'] ?? null;
 
             $jam_absen = new \DateTime($timestamps);
@@ -95,7 +95,7 @@ class StudentsExport implements FromCollection, WithHeadings
                 'nomor_induk' => $userNomorInduk,
                 'angkatan' => $userAngkatan,
                 'keterangan' => $keterangan,
-                'petani' => $petani,
+                'instruktur' => $instruktur,
                 'tanggal' => date('d-M-Y', strtotime($timestamps)),
                 'jam_absen' => $jam_absen->format('H:i:s'),
                 'image' => $image,
@@ -111,6 +111,6 @@ class StudentsExport implements FromCollection, WithHeadings
 
     public function headings(): array
     {
-        return ['ID', 'Nama', 'Nomor Induk', 'Angkatan', 'Keterangan','Petani','Tanggal','Jam Absen', 'Image', 'Latitude', 'Longitude' ];
+        return ['ID', 'Nama', 'Nomor Induk', 'Angkatan', 'Keterangan','Instruktur','Tanggal','Jam Absen', 'Image', 'Latitude', 'Longitude' ];
     }
 }

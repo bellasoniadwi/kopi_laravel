@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\ServiceProvider;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 return [
 
@@ -161,9 +162,6 @@ return [
          */
         Maatwebsite\Excel\ExcelServiceProvider::class,
         RealRashid\SweetAlert\SweetAlertServiceProvider::class,
-        Collective\Html\HtmlServiceProvider::class,
-        Kreait\Laravel\Firebase\ServiceProvider::class,
-
         /*
          * Application Service Providers...
          */
@@ -172,6 +170,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        
     ])->toArray(),
 
     /*
