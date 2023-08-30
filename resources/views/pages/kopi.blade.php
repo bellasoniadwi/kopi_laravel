@@ -27,6 +27,7 @@
               <thead>
                 <tr>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Foto</th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Id Kopi</th>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Jenis</th>
                   <th width="100px" class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Deskripsi</th>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Aksi</th>
@@ -38,6 +39,13 @@
                 <tr>
                   <td class="align-middle text-center">
                     <img src="{{ $kopi['foto'] }}" class="avatar avatar-lg me-3 border-radius-lg" alt="user1">
+                  </td>
+                  <td>
+                    <div class="visible-print align-middle text-center">
+                      <br>
+                      {!! QrCode::size(60)->generate($kopi['id']); !!} 
+                      <p style="font-size: 10px;">{{ $kopi['id'] }} </p> 
+                    </div>
                   </td>
                   <td class="align-middle text-center">
                     <p class="text-xs font-weight-bold mb-0">{{ $kopi['jenis'] }}</p>
