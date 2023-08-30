@@ -53,6 +53,7 @@ Route::group(['middleware' => ['auth', 'notpetani']], function () {
     Route::post('/edit-user/{id}', [UserController::class, 'update'])->name('user.update');
 
     // export
+    Route::get('/export-record', [RecordController::class, 'exportExcel'])->name('export.record');
     Route::get('/export-siswa', [StudentController::class, 'exportExcel'])->name('export.siswa');
     Route::get('/export-rekap', [HomeController::class, 'exportExcel'])->name('export.rekap');
     Route::get('/export-kehadiran', [HomeController::class, 'exportExcelKehadiran'])->name('export.kehadiran');

@@ -9,7 +9,7 @@
 @section('content')
 <div class="row">
   <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-    <a href="{{ route('export.siswa') }}" class="btn btn-success">Export Excel</a>
+    <a href="{{ route('export.record') }}" class="btn btn-success">Export Excel</a>
   </div>
     <div class="col-12">
       <div class="card my-4">
