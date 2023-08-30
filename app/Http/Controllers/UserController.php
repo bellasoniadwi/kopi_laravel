@@ -168,4 +168,57 @@ class UserController extends Controller
             return back()->withInput();
         }
     }
+
+    //START FUNCTION EDIT
+
+    public function validator_edit(array $data)
+    {
+        return Validator::make($data, [
+            'telepon' => ['required', 'numeric'],
+            'jabatan' => ['required', 'string', 'max:255'],
+        ]);
+    }
+
+    public function edit_form($documentId) {
+        $userCollection = app('firebase.firestore')->database()->collection('users');
+
+        // Mengambil dokumen dari collection dan mengubahnya menjadi array
+        $userDocuments = $userCollection->documents();
+        $list_user = [];
+        foreach ($userDocuments as $document) {
+            $list_user[] = $document->data();
+        }
+
+        try {
+            $user = app('firebase.firestore')->database()->collection('users')->document($documentId)->snapshot();
+
+            return view('pages.user_edit_form', compact('user', 'documentId', 'list_user'));
+        } catch (FirebaseException $e) {
+            return response()->json(['message' => 'Gagal mengambil data user: ' . $e->getMessage()], 500);
+        }
+    }
+
+
+    public function update(Request $request, $documentId)
+    {
+        try{
+            $this->validator($request->all())->validate();
+
+                $firestore = app(Firestore::class);
+                $userRef = $firestore->database()->collection('users')->document($documentId);
+
+                $userRef->update([
+                    ['path' => 'name', 'value' => $request->input('name')],
+                    ['path' => 'role', 'value' => $request->input('role')],
+                ]);
+
+                Alert::success('Data akun pengguna berhasil diubah');
+                return redirect()->route('user.index');
+        } catch (FirebaseException $e) {
+            Session::flash('error', $e->getMessage());
+            return back()->withInput();
+        }
+    }
+
+    //END FUNCTION EDIT
 }
