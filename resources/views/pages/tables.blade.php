@@ -4,14 +4,14 @@
     Tables
 @endsection
 
-@section('tables', 'active bg-gradient-info')
+@section('tables', 'active bg-gradient-kopi')
 
 @section('content')
 <div class="row">
     <div class="col-12">
       <div class="card my-4">
         <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-          <div class="bg-gradient-info shadow-info border-radius-lg pt-4 pb-3">
+          <div class="bg-gradient-kopi shadow-kopi border-radius-lg pt-4 pb-3">
             <h6 class="text-white text-capitalize ps-3">Authors table</h6>
           </div>
         </div>
@@ -207,7 +207,7 @@
     <div class="col-12">
       <div class="card my-4">
         <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-          <div class="bg-gradient-info shadow-info border-radius-lg pt-4 pb-3">
+          <div class="bg-gradient-kopi shadow-kopi border-radius-lg pt-4 pb-3">
             <h6 class="text-white text-capitalize ps-3">Projects table</h6>
           </div>
         </div>
@@ -246,7 +246,7 @@
                       <span class="me-2 text-xs font-weight-bold">60%</span>
                       <div>
                         <div class="progress">
-                          <div class="progress-bar bg-gradient-info" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
+                          <div class="progress-bar bg-gradient-kopi" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
                         </div>
                       </div>
                     </div>
@@ -345,7 +345,7 @@
                       <span class="me-2 text-xs font-weight-bold">80%</span>
                       <div>
                         <div class="progress">
-                          <div class="progress-bar bg-gradient-info" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="80" style="width: 80%;"></div>
+                          <div class="progress-bar bg-gradient-kopi" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="80" style="width: 80%;"></div>
                         </div>
                       </div>
                     </div>

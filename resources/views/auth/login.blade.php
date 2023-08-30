@@ -34,7 +34,7 @@
                             
                             <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                                 
-                                <div class="bg-gradient-info shadow-info border-radius-lg py-3 pe-1">
+                                <div class="bg-gradient-kopi shadow-kopi border-radius-lg py-3 pe-1">
                                     <h4 class="text-white font-weight-bolder text-center mt-2 mb-0">Sign in</h4>
                                 </div>
                             </div>
@@ -60,14 +60,14 @@
                                         @enderror
                                     </div>
                                     <div class="text-center">
-                                        <button type="submit" class="btn bg-gradient-info w-100 my-4 mb-2">Sign in</button>
+                                        <button type="submit" class="btn bg-gradient-kopi w-100 my-4 mb-2">Sign in</button>
                                     </div>
                                     {{-- <p class="mt-4 text-sm text-center">
                                         Don't have an account?
-                                        <a href="../pages/sign-up.html" class="text-info text-gradient font-weight-bold">Sign up</a>
+                                        <a href="../pages/sign-up.html" class="text-kopi text-gradient font-weight-bold">Sign up</a>
                                     </p> --}}
                                     <div class=" text-center">
-                                        <a class="btn btn-link  text-info text-center" href="{{ route('index') }}" style="text-decoration: none;">
+                                        <a class="btn btn-link  text-kopi text-center" href="{{ route('index') }}" style="text-decoration: none;">
                                             Lupa Password?
                                         </a>
                                     </div>
