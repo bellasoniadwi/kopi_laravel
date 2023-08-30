@@ -156,7 +156,7 @@ class KopiController extends Controller
         try {
             app('firebase.firestore')->database()->collection('kopis')->document($documentId)->delete();
             Alert::success('Data absensi siswa berhasil dihapus');
-            return redirect()->route('siswa');
+            return redirect()->route('kopi');
         } catch (FirebaseException $e) {
             return response()->json(['message' => 'Gagal menghapus data kopi: ' . $e->getMessage()], 500);
         }
