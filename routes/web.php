@@ -54,6 +54,8 @@ Route::group(['middleware' => ['auth', 'notpetani']], function () {
 
     // export
     Route::get('/export-record', [RecordController::class, 'exportExcel'])->name('export.record');
+    Route::get('/export-kopi', [KopiController::class, 'exportExcel'])->name('export.kopi');
+
     Route::get('/export-siswa', [StudentController::class, 'exportExcel'])->name('export.siswa');
     Route::get('/export-rekap', [HomeController::class, 'exportExcel'])->name('export.rekap');
     Route::get('/export-kehadiran', [HomeController::class, 'exportExcelKehadiran'])->name('export.kehadiran');

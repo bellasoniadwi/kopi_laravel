@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\KopiExport;
 use Google\Cloud\Firestore\FirestoreClient;
 use Maatwebsite\Excel\Facades\Excel;
 use Kreait\Firebase\Contract\Firestore;
@@ -165,6 +166,6 @@ class KopiController extends Controller
     //export excel untuk data bukti kehadiran siswa
     public function exportExcel()
     {
-        return Excel::download(new StudentsExport(), 'bukti_kehadiran.xlsx');
+        return Excel::download(new KopiExport(), 'data_kopi.xlsx');
     }
 }
