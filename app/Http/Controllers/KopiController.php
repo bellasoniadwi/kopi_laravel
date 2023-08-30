@@ -59,7 +59,7 @@ class KopiController extends Controller
 
             return view('pages.kopi_edit_form', compact('kopi', 'documentId'));
         } catch (FirebaseException $e) {
-            return response()->json(['message' => 'Gagal mengambil data student: ' . $e->getMessage()], 500);
+            return response()->json(['message' => 'Gagal mengambil data kopi: ' . $e->getMessage()], 500);
         }
     }
 
@@ -115,8 +115,8 @@ class KopiController extends Controller
         try{
             $this->validator($request->all())->validate();
         
-            if ($request->hasFile('image')) {
-                $imageFile = $request->file('image');
+            if ($request->hasFile('foto')) {
+                $imageFile = $request->file('foto');
 
                 $storage = Firebase::storage();
                 $uniqueId = microtime(true) * 10000;
@@ -155,7 +155,7 @@ class KopiController extends Controller
     {
         try {
             app('firebase.firestore')->database()->collection('kopis')->document($documentId)->delete();
-            Alert::success('Data absensi siswa berhasil dihapus');
+            Alert::success('Data kopi berhasil dihapus');
             return redirect()->route('kopi');
         } catch (FirebaseException $e) {
             return response()->json(['message' => 'Gagal menghapus data kopi: ' . $e->getMessage()], 500);
