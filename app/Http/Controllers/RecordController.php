@@ -152,7 +152,7 @@ class RecordController extends Controller
                     ['path' => 'feedback', 'value' => $request->input('feedback')],
                 ]);
 
-                Alert::success('Data record berhasil diubah');
+                Alert::success('Feedback berhasil ditambahkan');
                 return redirect()->route('record');
         } catch (FirebaseException $e) {
             Session::flash('error', $e->getMessage());
