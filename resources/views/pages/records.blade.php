@@ -33,7 +33,6 @@
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Lokasi</th>
                   <th width="100px" class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Deskripsi</th>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Aksi</th>
-                  {{-- <th class="text-secondary opacity-7"></th> --}}
                 </tr>
               </thead>
               <tbody>
@@ -67,15 +66,15 @@
                     </span>
                   </td>
                   <td class="align-middle text-center">
-                    <form action="{{ route('siswa.delete', ['id' => $record['id']]) }}" method="post">
+                    <form action="{{ route('record.delete', ['id' => $record['id']]) }}" method="post">
                       @csrf
                       @method('delete')
-                      <a href="{{ route('siswa.form.edit', ['id' => $record['id']]) }}">
-                        <i class="material-icons" title="Edit Card">edit</i>
+                      <a href="{{ route('record.form.edit', ['id' => $record['id']]) }}">
+                        <i class="material-icons" title="Edit Record">edit</i>
                       </a>
 
                       {{-- <button type="submit" class="btn btn-icons show_confirm">
-                        <i class="material-icons ms-auto text-dark cursor-pointer" title="Hapus Siswa">delete</i>
+                        <i class="material-icons ms-auto text-dark cursor-pointer" title="Hapus Record">delete</i>
                       </button> --}}
                     </form>
                   </td>

@@ -60,7 +60,7 @@
                       @csrf
                       @method('delete')
                       <a href="{{ route('kopi.form.edit', ['id' => $kopi['id']]) }}">
-                        <i class="material-icons" title="Edit Card">edit</i>
+                        <i class="material-icons" title="Edit Kopi">edit</i>
                       </a>
 
                       <button type="submit" class="btn btn-icons show_confirm">
