@@ -50,7 +50,7 @@ class UserController extends Controller
         if ($role_akun == 'Superadmin') {
             $query = $collectionReference->orderBy('name');
         } elseif ($role_akun == 'Pengawas') {
-            $query = $collectionReference->where($role_akun=='Petani')->orderBy('name', 'asc');
+            $query = $collectionReference->where('role','=','Petani')->orderBy('name', 'asc');
         } else {
             $query = $collectionReference->orderBy('name');
         }
@@ -136,17 +136,17 @@ class UserController extends Controller
                 $userRef->set([
                     'name' => $request->input('name'),
                     'email' => $request->input('email'),
-                    'role' => 'Instruktur',
+                    'role' => $request->input('role'),
                 ]);
     
                 Alert::success('Akun baru berhasil ditambahkan');
                 return redirect()->route('user.index');
-            } elseif($role_akun == 'Instruktur'){
+            } elseif($role_akun == 'Pengawas'){
                 $userProperties = [
                     'email' => $request->input('email'),
                     'password' => $request->input('password'),
                     'name' => $request->input('name'),
-                    'role' => 'Siswa',
+                    'role' => 'Petani',
                 ];
       
                 $createdUser = $this->auth->createUser($userProperties);
@@ -156,7 +156,7 @@ class UserController extends Controller
                 $userRef->set([
                     'name' => $request->input('name'),
                     'email' => $request->input('email'),
-                    'role' => 'Siswa',
+                    'role' => 'Petani',
                 ]);
     
                 Alert::success('Akun baru berhasil ditambahkan');
