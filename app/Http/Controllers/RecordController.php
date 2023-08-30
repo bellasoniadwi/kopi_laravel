@@ -41,6 +41,7 @@ class RecordController extends Controller
                 $latitude = $documentData['latitude'] ?? null;
                 $longitude = $documentData['longitude'] ?? null;
                 $googleMapsUrl = sprintf('https://www.google.com/maps?q=%f,%f', $latitude, $longitude);
+                $feedback = $documentData['feedback'] ?? null;
 
                 $data[] = [
                     'jenis' => $jenis,
@@ -50,7 +51,8 @@ class RecordController extends Controller
                     'latitude' => $latitude,
                     'longitude' => $longitude,
                     'googleMapsUrl' => $googleMapsUrl,
-                    'id'=>$documentId
+                    'id'=>$documentId,
+                    'feedback'=> $feedback
                 ];
 
             }

@@ -32,6 +32,7 @@
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Jam</th>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Lokasi</th>
                   <th width="100px" class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Deskripsi</th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Feedback</th>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Aksi</th>
                 </tr>
               </thead>
@@ -64,6 +65,17 @@
                     <span class="text-secondary text-xs font-weight-bold">
                       {{ Str::limit($record['deskripsi'], 25) }}
                     </span>
+                  </td>
+                  <td class="align-middle text-center">
+                    @if ($record['feedback'] != "")
+                      <span class="badge badge-sm bg-gradient-success">
+                        Ada
+                      </span>
+                    @else
+                    <span class="badge badge-sm bg-gradient-warning">
+                      Tidak
+                    </span>
+                    @endif
                   </td>
                   <td class="align-middle text-center">
                     <form action="{{ route('record.delete', ['id' => $record['id']]) }}" method="post">
