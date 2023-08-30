@@ -17,7 +17,6 @@
                     <form id="recordForm" role="form" method="POST" action="{{ route('record.update', $documentId) }}" enctype="multipart/form-data">
                         @csrf
                         <div class="input-group input-group-outline mb-3">
-                            <label class="form-label {{ $record->get('jenis') ? 'active' : '' }}">Jenis</label>
                             <input type="text" id="jenis" name="jenis"
                                 class="form-control @error('jenis') is-invalid @enderror" value="{{ $record->get('jenis') }}"
                                 required autocomplete="jenis" autofocus readonly>
@@ -42,7 +41,7 @@
                             <label class="form-label {{ $record->get('feedback') ? 'active' : '' }}">Feedback</label>
                             <input type="text" id="feedback" name="feedback"
                                 class="form-control @error('feedback') is-invalid @enderror" value="{{ $record->get('feedback') }}"
-                                required autocomplete="feedback" autofocus>
+                                autocomplete="feedback" autofocus>
                             @error('feedback')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
