@@ -18,33 +18,38 @@ class RecordExport implements FromCollection, WithHeadings
         $documents = $collectionReference->documents();
 
         $data = [];
+        $currentMonth = date('Y-m');
+
         foreach ($documents as $doc) {
             $documentData = $doc->data();
-            $id = $doc->id();
-            $tanggal = date('Y-m-d', strtotime($documentData['timestamps'])) ?? null;
             $timestamp = new \DateTime($documentData['timestamps']);
             $timezone = new \DateTimeZone('Asia/Jakarta');
             $timestamp->setTimezone($timezone);
-            $waktu = $timestamp->format('H:i:s');
-            $jenis = $documentData['jenis'] ?? null;
-            $foto = $documentData['foto'] ?? null;
-            $latitude = $documentData['latitude'] ?? null;
-            $longitude = $documentData['longitude'] ?? null;
-            $googleMapsUrl = sprintf('https://www.google.com/maps?q=%f,%f', $latitude, $longitude);
-            $deskripsi = $documentData['deskripsi'] ?? null;
-            $feedback = $documentData['feedback'] ?? null;
+
+            if ($timestamp->format('Y-m') === $currentMonth) {
+                $id = $doc->id();
+                $tanggal = date('Y-m-d', strtotime($documentData['timestamps'])) ?? null;  
+                $waktu = $timestamp->format('H:i:s');
+                $jenis = $documentData['jenis'] ?? null;
+                $foto = $documentData['foto'] ?? null;
+                $latitude = $documentData['latitude'] ?? null;
+                $longitude = $documentData['longitude'] ?? null;
+                $googleMapsUrl = sprintf('https://www.google.com/maps?q=%f,%f', $latitude, $longitude);
+                $deskripsi = $documentData['deskripsi'] ?? null;
+                $feedback = $documentData['feedback'] ?? null;
 
 
-            $data[] = [
-                'id' => $id,
-                'tanggal' => $tanggal,
-                'waktu' => $waktu,
-                'jenis' => $jenis,
-                'foto' => $foto,
-                'lokasi' => $googleMapsUrl,
-                'deskripsi' => $deskripsi,
-                'feedback' => $feedback,
-            ];
+                $data[] = [
+                    'id' => $id,
+                    'tanggal' => $tanggal,
+                    'waktu' => $waktu,
+                    'jenis' => $jenis,
+                    'foto' => $foto,
+                    'lokasi' => $googleMapsUrl,
+                    'deskripsi' => $deskripsi,
+                    'feedback' => $feedback,
+                ];
+            }
         }
 
         return collect($data);
