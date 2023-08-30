@@ -3,11 +3,19 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Google\Cloud\Firestore\FirestoreClient;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class IsNotSiswa
+class IsPengawas
 {
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
+     * @return mixed
+     */
     public function handle(Request $request, Closure $next)
     {
         $user = auth()->user();
@@ -19,13 +27,15 @@ class IsNotSiswa
             $database = $firestore->database();
             $userDocRef = $database->collection('users')->document($id);
             $userSnapshot = $userDocRef->snapshot();
+
+            // Mengakses data dari snapshot menggunakan metode data()
             $userData = $userSnapshot->data();
 
-            if ($userSnapshot->exists() && isset($userData['role']) && $userData['role'] === "Siswa") {
-                return redirect()->route('notauthorize');
+            if ($userSnapshot->exists() && isset($userData['role']) && $userData['role'] === "Pengawas") {
+                return $next($request);
             }
         }
 
-        return $next($request);
+        return redirect()->route('dashboard');
     }
 }

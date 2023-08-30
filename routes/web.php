@@ -4,6 +4,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Auth\ResetController;
+use App\Http\Controllers\RecordController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -24,11 +25,11 @@ Route::get('/email/verify', [ResetController::class, 'verify_email'])->name('ver
 Route::get('/password/reset', [ResetController::class, 'index'])->name('index');
 Route::post('/password/reset/store', [ResetController::class, 'store'])->name('store');
 
-Route::group(['middleware' => ['auth', 'notsiswa']], function () {
+Route::group(['middleware' => ['auth', 'notpetani']], function () {
     Route::get('/', [HomeController::class, 'dashboard'])->name('dashboard');
 
     // index
-    Route::get('/siswa', [StudentController::class, 'index'])->name('siswa');
+    Route::get('/record', [RecordController::class, 'index'])->name('record');
     Route::get('/user', [UserController::class, 'index'])->name('user.index');
 
     // create
