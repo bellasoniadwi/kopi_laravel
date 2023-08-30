@@ -70,6 +70,7 @@ class UserController extends Controller
                 'name' => $name,
                 'email' => $email,
                 'role' => $role,
+                'id'=>$documentId
             ];
         }
 
@@ -174,8 +175,7 @@ class UserController extends Controller
     public function validator_edit(array $data)
     {
         return Validator::make($data, [
-            'telepon' => ['required', 'numeric'],
-            'jabatan' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:255'],
         ]);
     }
 
@@ -202,15 +202,42 @@ class UserController extends Controller
     public function update(Request $request, $documentId)
     {
         try{
-            $this->validator($request->all())->validate();
+            $user = auth()->user();
+
+            if ($user) {
+                $id = $user->localId;
+                $firestore = app('firebase.firestore');
+                $database = $firestore->database();
+    
+                $userDocRef = $database->collection('users')->document($id);
+                $userSnapshot = $userDocRef->snapshot();
+    
+                if ($userSnapshot->exists()) {
+                    $name = $userSnapshot->data()['name'];
+                    $role_akun = $userSnapshot->data()['role'];
+                } else {
+                    $name = "Tidak Dikenali";
+                }
+            } else {
+                $name = "Tidak Dikenali";
+            }
+
+            $this->validator_edit($request->all())->validate();
 
                 $firestore = app(Firestore::class);
                 $userRef = $firestore->database()->collection('users')->document($documentId);
 
-                $userRef->update([
-                    ['path' => 'name', 'value' => $request->input('name')],
-                    ['path' => 'role', 'value' => $request->input('role')],
-                ]);
+                if($role_akun == 'Superadmin'){
+                    $userRef->update([
+                        ['path' => 'name', 'value' => $request->input('name')],
+                        ['path' => 'role', 'value' => $request->input('role')],
+                    ]);
+                } elseif($role_akun == 'Pengawas'){
+                    $userRef->update([
+                        ['path' => 'name', 'value' => $request->input('name')],
+                    ]);
+                }
+                
 
                 Alert::success('Data akun pengguna berhasil diubah');
                 return redirect()->route('user.index');
@@ -221,4 +248,30 @@ class UserController extends Controller
     }
 
     //END FUNCTION EDIT
+
+
+    // START FUNCTION DELETE FOR FIRESTORE COLLECTIONS USERS AND USERS AUTHENTICATION
+    public function delete($documentId, Auth $firebaseAuth)
+    {
+        try {
+            // Get the user's email from Firestore
+            $userDocument = app('firebase.firestore')->database()->collection('users')->document($documentId)->snapshot();
+            $userEmail = $userDocument->data()['email'];
+
+            // Delete the user document from Firestore
+            app('firebase.firestore')->database()->collection('users')->document($documentId)->delete();
+
+            // Delete the user's authentication record from Firebase Authentication
+            $user = $firebaseAuth->getUserByEmail($userEmail);
+            $firebaseAuth->deleteUser($user->uid);
+
+            Alert::success('Data akun pengguna berhasil dihapus');
+            return redirect()->route('user.index');
+        } catch (FirebaseException $e) {
+            return response()->json(['message' => 'Gagal menghapus data akun pengguna: ' . $e->getMessage()], 500);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Terjadi kesalahan: ' . $e->getMessage()], 500);
+        }
+    }
+    // END FUNCTION DELETE FOR FIRESTORE COLLECTIONS USERS AND USERS AUTHENTICATION
 }

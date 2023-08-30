@@ -26,6 +26,7 @@
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama</th>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Email</th>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Role</th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Aksi</th>
                 </tr>
               </thead>
               <tbody>
@@ -40,6 +41,21 @@
                   <td class="align-middle text-center">
                     <p class="text-xs font-weight-bold mb-0">{{ $user['role'] }}</p>
                   </td>
+                  {{-- START fungsi edit dan delete --}}
+                  <td class="align-middle text-center">
+                    <form action="{{ route('user.delete', ['id' => $user['id']]) }}" method="post">
+                      @csrf
+                      @method('delete')
+                      <a href="{{ route('user.form.edit', ['id' => $user['id']]) }}">
+                        <i class="material-icons" title="Edit Card">edit</i>
+                      </a>
+
+                      <button type="submit" class="btn btn-icons show_confirm">
+                        <i class="material-icons ms-auto text-dark cursor-pointer" title="Hapus user">delete</i>
+                      </button>
+                    </form>
+                  </td>
+                  {{-- END fungsi edit dan delete --}}
                 </tr>
                 @endforeach
               </tbody>

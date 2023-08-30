@@ -49,6 +49,8 @@ Route::group(['middleware' => ['auth', 'notpetani']], function () {
     Route::post('/edit-kopi/{id}', [KopiController::class, 'update'])->name('kopi.update');
     Route::get('/edit-record/{id}', [RecordController::class, 'edit_form'])->name('record.form.edit');
     Route::post('/edit-record/{id}', [RecordController::class, 'update'])->name('record.update');
+    Route::get('/edit-user/{id}', [UserController::class, 'edit_form'])->name('user.form.edit');
+    Route::post('/edit-user/{id}', [UserController::class, 'update'])->name('user.update');
 
     // export
     Route::get('/export-siswa', [StudentController::class, 'exportExcel'])->name('export.siswa');
@@ -59,6 +61,7 @@ Route::group(['middleware' => ['auth', 'notpetani']], function () {
     Route::delete('/delete-siswa/{id}', [StudentController::class, 'delete'])->name('siswa.delete');
     Route::delete('/delete-kopi/{id}', [KopiController::class, 'delete'])->name('kopi.delete');
     Route::delete('/delete-record/{id}', [RecordController::class, 'delete'])->name('record.delete');
+    Route::delete('/delete-user/{id}', [UserController::class, 'delete'])->name('user.delete');
     
 });
 
