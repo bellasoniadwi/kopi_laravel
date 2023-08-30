@@ -45,8 +45,8 @@ class HomeController extends Controller
         // set data yang ditampilkan per role/nama
         if ($role_akun == 'Superadmin') {
             $query = $collectionReference->orderBy('name');
-        } elseif ($role_akun == 'Instruktur') {
-            $query = $collectionReference->where('instruktur', '=', $nama_akun)->orderBy('name', 'asc');
+        } elseif ($role_akun == 'Pengawas') {
+            $query = $collectionReference->where('pengawas', '=', $nama_akun)->orderBy('name', 'asc');
         } else {
             $query = $collectionReference->orderBy('name');
         }
@@ -153,7 +153,7 @@ class HomeController extends Controller
         $userDocuments = $collectionReferenceUser->documents();
         if ($role_akun == 'Superadmin') {
             $queryUser = $collectionReferenceUser->where('didaftarkan_oleh', '=','Developer' )->orderBy('name', 'asc');
-        } elseif ($role_akun == 'Instruktur') {
+        } elseif ($role_akun == 'Pengawas') {
             $queryUser = $collectionReferenceUser->where('didaftarkan_oleh', '=', $nama_akun)->orderBy('name', 'asc');
         } else {
             $queryUser = $collectionReferenceUser->orderBy('name');

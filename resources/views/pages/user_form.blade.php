@@ -36,10 +36,12 @@
                         </div>
                         @can('superadmin')
                         <div class="input-group input-group-outline mb-3">
-                            <label class="form-label {{ old('role') ? 'active' : '' }}">Role</label>
-                            <input type="text" id="role" name="role"
-                                class="form-control @error('role') is-invalid @enderror" value="{{ old('role') }}"
-                                required autocomplete="role">
+                            <label class="form-label"></label>
+                            <select class="form-control has-feedback-right" id="role" name="role" value="{{ old('role') }}">
+                                <option value="">--Pilih Role--</option>
+                                <option value="Pengawas" >Pengawas</option>
+                                <option value="Petani" >Petani</option>
+                            </select>
                             @error('role')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -69,17 +71,6 @@
                                 </span>
                             @enderror
                         </div>
-                        {{-- <div class="input-group input-group-outline mb-3">
-                            <label class="form-label"></label>
-                            <select class="form-control has-feedback-right" id="role" name="role" value="{{ old('role') }}">
-                                @can('superadmin')
-                                <option value="Instruktur"></option>
-                                @endcan
-                                @can('instruktur')
-                                <option value="Siswa">Siswa</option>
-                                @endcan
-                            </select>
-                        </div> --}}
                         {{-- <div class="input-group input-group-outline mb-3">
                             <div class="col-md-8">
                                 <label class="form-label"></label>
