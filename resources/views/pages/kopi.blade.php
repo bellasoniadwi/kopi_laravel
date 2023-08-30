@@ -21,7 +21,7 @@
         <div class="card-body px-0 pb-2">
           <div class="table-responsive p-0">
             <div class="d-flex justify-content-end mb-3">
-              <a class="btn btn-outline-kopi btn-sm mb-0 me-3" href="{{route('siswa.form')}}">Tambah Data Kopi</a>
+              <a class="btn btn-outline-kopi btn-sm mb-0 me-3" href="{{route('kopi.form')}}">Tambah Data Kopi</a>
             </div>
             <table class="table align-items-center mb-0">
               <thead>

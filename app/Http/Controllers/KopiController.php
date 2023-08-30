@@ -6,6 +6,7 @@ use Google\Cloud\Firestore\FirestoreClient;
 use Maatwebsite\Excel\Facades\Excel;
 use Kreait\Firebase\Contract\Firestore;
 use App\Exports\StudentsExport;
+use App\Helpers\Helper;
 use DateTime;
 use Google\Cloud\Core\Timestamp;
 use Illuminate\Http\Request;
@@ -49,67 +50,10 @@ class KopiController extends Controller
     }
 
     public function create_form() {
-        $user = auth()->user();
-
-        if ($user) {
-            $id = $user->localId;
-
-            $firestore = app('firebase.firestore');
-            $database = $firestore->database();
-
-            $userDocRef = $database->collection('users')->document($id);
-            $userSnapshot = $userDocRef->snapshot();
-
-            if ($userSnapshot->exists()) {
-                $nama_akun = $userSnapshot->data()['name'];
-            } else {
-                $nama_akun = "Name not found";
-            }
-        } else {
-            $nama_akun = "Name ga kebaca";
-        }
-
-        $siswaCollection = app('firebase.firestore')->database()->collection('users')->where('didaftarkan_oleh', '=', $nama_akun);
-    
-        // Mengambil dokumen dari collection dan mengubahnya menjadi array
-        $siswaDocuments = $siswaCollection->documents();
-        $list_siswa = [];
-        foreach ($siswaDocuments as $document) {
-            $list_siswa[] = $document->data();
-        }
-    
-        return view('pages.student_form', ['list_siswa' => $list_siswa]);
+        return view('pages.kopi_form');
     }
 
     public function edit_form($documentId) {
-        $user = auth()->user();
-
-        if ($user) {
-            $id = $user->localId;
-
-            $firestore = app('firebase.firestore');
-            $database = $firestore->database();
-
-            $userDocRef = $database->collection('users')->document($id);
-            $userSnapshot = $userDocRef->snapshot();
-
-            if ($userSnapshot->exists()) {
-                $nama_akun = $userSnapshot->data()['name'];
-            } else {
-                $nama_akun = "Name not found";
-            }
-        } else {
-            $nama_akun = "Name ga kebaca";
-        }
-
-        $siswaCollection = app('firebase.firestore')->database()->collection('users')->where('didaftarkan_oleh', '=', $nama_akun);
-    
-        // Mengambil dokumen dari collection dan mengubahnya menjadi array
-        $siswaDocuments = $siswaCollection->documents();
-        $list_siswa = [];
-        foreach ($siswaDocuments as $document) {
-            $list_siswa[] = $document->data();
-        }
 
         try {
             $siswa = app('firebase.firestore')->database()->collection('students')->document($documentId)->snapshot();
@@ -123,38 +67,19 @@ class KopiController extends Controller
     public function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'keterangan' => ['required', 'string', 'max:255'],
-            'image' => ['mimes:png,jpg,jpeg', 'max:2048']
+            'jenis' => ['required', 'string', 'max:255'],
+            'deskripsi' => ['required', 'string', 'max:255'],
+            'foto' => ['mimes:png,jpg,jpeg', 'max:2048']
         ]);
     }
 
     public function create(Request $request) {
         try {
-            $user = auth()->user();
-    
-            if ($user) {
-                $id = $user->localId;
-                $firestore = app('firebase.firestore');
-                $database = $firestore->database();
-    
-                $userDocRef = $database->collection('users')->document($id);
-                $userSnapshot = $userDocRef->snapshot();
-    
-                if ($userSnapshot->exists()) {
-                    $name = $userSnapshot->data()['name'];
-                } else {
-                    $name = "Tidak Dikenali";
-                }
-            } else {
-                $name = "Tidak Dikenali";
-            }
     
             $this->validator($request->all())->validate();
     
-            // Handle image upload and store its path in Firebase Storage
-            if ($request->hasFile('image')) {
-                $imageFile = $request->file('image');
+            if ($request->hasFile('foto')) {
+                $imageFile = $request->file('foto');
 
                 $storage = Firebase::storage();
                 $uniqueId = microtime(true) * 10000;
@@ -167,25 +92,19 @@ class KopiController extends Controller
 
                 $imagePath = $storage->getBucket()->object($storagePath)->signedUrl(now()->addYears(10));
             } else {
-                $imagePath = null; // If no image is uploaded, set the image path to null
+                $imagePath = null;
             }
     
             $firestore = app(Firestore::class);
-            $studentRef = $firestore->database()->collection('students');
-            $tanggal = new Timestamp(new DateTime());
-
-            $studentRef->add([
-                'name' => $request->input('name'),
-                'keterangan' => $request->input('keterangan'),
-                'instruktur' => $name,
-                'timestamps' => $tanggal,
-                'latitude' => $request->input('latitude'),
-                'longitude' => $request->input('longitude'),
-                'image' => $imagePath,
+            $kopiRef = $firestore->database()->collection('kopis')->document(Helper::IdKopiGenerator());
+            $kopiRef->set([
+                'jenis' => $request->input('jenis'),
+                'deskripsi' => $request->input('deskripsi'),
+                'foto' => $imagePath,
             ]);
             
-            Alert::success('Data absensi siswa berhasil ditambahkan');
-            return redirect()->route('siswa');
+            Alert::success('Data kopi berhasil ditambahkan');
+            return redirect()->route('kopi');
         } catch (FirebaseException $e) {
             Session::flash('error', $e->getMessage());
             return back()->withInput();

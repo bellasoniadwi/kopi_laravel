@@ -39,6 +39,8 @@ Route::group(['middleware' => ['auth', 'notpetani']], function () {
     Route::post('/create-user', [UserController::class, 'create'])->name('user.create');
     Route::get('/create-siswa', [StudentController::class, 'create_form'])->name('siswa.form');
     Route::post('/create-siswa', [StudentController::class, 'create'])->name('siswa.create');
+    Route::get('/create-kopi', [KopiController::class, 'create_form'])->name('kopi.form');
+    Route::post('/create-kopi', [KopiController::class, 'create'])->name('kopi.create');
 
     // edit
     Route::get('/edit-siswa/{id}', [StudentController::class, 'edit_form'])->name('siswa.form.edit');
