@@ -54,11 +54,10 @@ class KopiController extends Controller
     }
 
     public function edit_form($documentId) {
-
         try {
-            $siswa = app('firebase.firestore')->database()->collection('students')->document($documentId)->snapshot();
+            $kopi = app('firebase.firestore')->database()->collection('kopis')->document($documentId)->snapshot();
 
-            return view('pages.student_edit_form', compact('siswa', 'documentId', 'list_siswa'));
+            return view('pages.kopi_edit_form', compact('kopi', 'documentId'));
         } catch (FirebaseException $e) {
             return response()->json(['message' => 'Gagal mengambil data student: ' . $e->getMessage()], 500);
         }
@@ -116,7 +115,6 @@ class KopiController extends Controller
         try{
             $this->validator($request->all())->validate();
         
-            // Handle image upload and store its path in Firebase Storage
             if ($request->hasFile('image')) {
                 $imageFile = $request->file('image');
 
@@ -132,25 +130,21 @@ class KopiController extends Controller
                 $imagePath = $storage->getBucket()->object($storagePath)->signedUrl(now()->addYears(10));
             } else {
                 $firestore = app(Firestore::class);
-                $studentRef = $firestore->database()->collection('students')->document($documentId)->snapshot();
-                $imagePath = $studentRef->get('image');
+                $kopiRef = $firestore->database()->collection('kopis')->document($documentId)->snapshot();
+                $imagePath = $kopiRef->get('foto');
             }
         
                 $firestore = app(Firestore::class);
-                $studentRef = $firestore->database()->collection('students')->document($documentId);
-                $tanggal = new Timestamp(new DateTime());
+                $kopiRef = $firestore->database()->collection('kopis')->document($documentId);
 
-                $studentRef->update([
-                    ['path' => 'name', 'value' => $request->input('name')],
-                    ['path' => 'keterangan', 'value' => $request->input('keterangan')],
-                    ['path' => 'timestamps', 'value' => $tanggal],
-                    ['path' => 'latitude', 'value' => $request->input('latitude')],
-                    ['path' => 'longitude', 'value' => $request->input('longitude')],
-                    ['path' => 'image', 'value' => $imagePath],
+                $kopiRef->update([
+                    ['path' => 'jenis', 'value' => $request->input('jenis')],
+                    ['path' => 'deskripsi', 'value' => $request->input('deskripsi')],
+                    ['path' => 'foto', 'value' => $imagePath],
                 ]);
 
-                Alert::success('Data absensi siswa berhasil diubah');
-                return redirect()->route('siswa');
+                Alert::success('Data kopi berhasil diubah');
+                return redirect()->route('kopi');
         } catch (FirebaseException $e) {
             Session::flash('error', $e->getMessage());
             return back()->withInput();
@@ -160,11 +154,11 @@ class KopiController extends Controller
     public function delete($documentId)
     {
         try {
-            app('firebase.firestore')->database()->collection('students')->document($documentId)->delete();
+            app('firebase.firestore')->database()->collection('kopis')->document($documentId)->delete();
             Alert::success('Data absensi siswa berhasil dihapus');
             return redirect()->route('siswa');
         } catch (FirebaseException $e) {
-            return response()->json(['message' => 'Gagal menghapus data student: ' . $e->getMessage()], 500);
+            return response()->json(['message' => 'Gagal menghapus data kopi: ' . $e->getMessage()], 500);
         }
     }
     

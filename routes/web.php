@@ -45,6 +45,8 @@ Route::group(['middleware' => ['auth', 'notpetani']], function () {
     // edit
     Route::get('/edit-siswa/{id}', [StudentController::class, 'edit_form'])->name('siswa.form.edit');
     Route::post('/edit-siswa/{id}', [StudentController::class, 'update'])->name('siswa.update');
+    Route::get('/edit-kopi/{id}', [KopiController::class, 'edit_form'])->name('kopi.form.edit');
+    Route::post('/edit-kopi/{id}', [KopiController::class, 'update'])->name('kopi.update');
 
     // export
     Route::get('/export-siswa', [StudentController::class, 'exportExcel'])->name('export.siswa');
@@ -53,7 +55,7 @@ Route::group(['middleware' => ['auth', 'notpetani']], function () {
 
     // delete
     Route::delete('/delete-siswa/{id}', [StudentController::class, 'delete'])->name('siswa.delete');
-
+    Route::delete('/delete-kopi/{id}', [KopiController::class, 'delete'])->name('kopi.delete');
     
     
 });

@@ -48,16 +48,16 @@
                     </span>
                   </td>
                   <td class="align-middle text-center">
-                    <form action="{{ route('siswa.delete', ['id' => $kopi['id']]) }}" method="post">
+                    <form action="{{ route('kopi.delete', ['id' => $kopi['id']]) }}" method="post">
                       @csrf
                       @method('delete')
-                      <a href="{{ route('siswa.form.edit', ['id' => $kopi['id']]) }}">
+                      <a href="{{ route('kopi.form.edit', ['id' => $kopi['id']]) }}">
                         <i class="material-icons" title="Edit Card">edit</i>
                       </a>
 
-                      {{-- <button type="submit" class="btn btn-icons show_confirm">
-                        <i class="material-icons ms-auto text-dark cursor-pointer" title="Hapus Siswa">delete</i>
-                      </button> --}}
+                      <button type="submit" class="btn btn-icons show_confirm">
+                        <i class="material-icons ms-auto text-dark cursor-pointer" title="Hapus Kopi">delete</i>
+                      </button>
                     </form>
                   </td>
                 </tr>
