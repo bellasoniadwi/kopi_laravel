@@ -18,10 +18,10 @@
         </div>
         <div class="card-body">
           <div id="vector-map" style="mt-5 width: 700px; height: 500px"></div>
-          <button id="focus-single">Focus on Indonesia</button>
+          {{-- <button id="focus-single">Focus on Indonesia</button>
           <button id="focus-multiple">Focus on Australia and Japan</button>
           <button id="focus-coords">Focus on Cyprus</button>
-          <button id="focus-init">Return to the initial state</button>
+          <button id="focus-init">Return to the initial state</button> --}}
         </div>
       </div>
     </div>
@@ -77,23 +77,26 @@
     jQuery(function(){
       var $ = jQuery;
       $(document).ready(function() {
-      $('#focus-single').click(function(){
-        $('#vector-map').vectorMap('set', 'focus', {region: 'ID', animate: true});
-      });
-      $('#focus-multiple').click(function(){
-        $('#vector-map').vectorMap('set', 'focus', {regions: ['AU', 'JP'], animate: true});
-      });
-      $('#focus-coords').click(function(){
-        $('#vector-map').vectorMap('set', 'focus', {scale: 7, lat: 35, lng: 33, animate: true});
-      });
-      $('#focus-init').click(function(){
-        $('#vector-map').vectorMap('set', 'focus', {scale: 1, x: 0.5, y: 0.5, animate: true});
-      });
+      // $('#focus-single').click(function(){
+      //   $('#vector-map').vectorMap('set', 'focus', {region: 'ID', animate: true});
+      // });
+      // $('#focus-multiple').click(function(){
+      //   $('#vector-map').vectorMap('set', 'focus', {regions: ['AU', 'JP'], animate: true});
+      // });
+      // $('#focus-coords').click(function(){
+      //   $('#vector-map').vectorMap('set', 'focus', {scale: 7, lat: 35, lng: 33, animate: true});
+      // });
+      // $('#focus-init').click(function(){
+      //   $('#vector-map').vectorMap('set', 'focus', {scale: 1, x: 0.5, y: 0.5, animate: true});
+      // });
     
       $('#vector-map').vectorMap({
         map: "world_mill_en",
         panOnDrag: true,
+        zoomOnScroll: false,
+        zoomButtons: true,
         focusOn: {
+          region: 'ID',
           x: 0.5,
           y: 0.5,
           scale: 2,
