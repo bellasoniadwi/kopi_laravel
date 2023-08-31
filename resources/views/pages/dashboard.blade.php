@@ -17,8 +17,7 @@
           </div>
         </div>
         <div class="card-body">
-            <div style="height: 400px"></div>
-            <div id="vector-map" style="mt-5 width: 600px; height: 400px"></div>
+          <div id="vector-map" style="mt-5 width: 700px; height: 500px"></div>
           <button id="focus-single">Focus on Indonesia</button>
           <button id="focus-multiple">Focus on Australia and Japan</button>
           <button id="focus-coords">Focus on Cyprus</button>
