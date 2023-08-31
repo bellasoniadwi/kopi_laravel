@@ -29,6 +29,7 @@ class HomeController extends Controller
             $documentData = $doc->data();
             $latitude = $documentData['latitude'] ?? null;
             $longitude = $documentData['longitude'] ?? null;
+            $jenis = $documentData['jenis'] ?? null;
 
             if ($latitude !== null && $longitude !== null) {
                 $markers[] = [
@@ -36,20 +37,11 @@ class HomeController extends Controller
                     'style' => [
                         'fill' => 'rgb(255, 0, 127)',
                     ],
+                    'jenis' => $jenis,
                 ];
             }
         }
         return view('pages.dashboard', compact('markers'));
-    }
-
-    public function exportExcel()
-    {
-        return Excel::download(new RekapExport(), 'rekap_siswa.xlsx');
-    }
-
-    public function exportExcelkehadiran()
-    {
-        return Excel::download(new KehadiranExport(), 'rekap_kehadiran.xlsx');
     }
 
     public function notauthorize()

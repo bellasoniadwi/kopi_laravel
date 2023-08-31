@@ -81,6 +81,11 @@
         zoomOnScroll: false,
         zoomButtons: true,
         markers: @json($markers),
+        onMarkerTipShow: function(event, label, index) {
+            var marker = @json($markers)[index];
+            var jenis = marker.jenis || 'Tidak ada jenis';
+            label.html(jenis);
+        },
         focusOn: {
           region: 'ID',
           x: 0.5,
