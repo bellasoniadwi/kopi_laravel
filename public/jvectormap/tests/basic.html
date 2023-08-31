@@ -1,98 +1,69 @@
-@extends('newlayout.main')
+<!DOCTYPE html>
+<html>
+<head>
+  <title>jVectorMap demo</title>
+  <link rel="stylesheet" media="all" href="../jquery-jvectormap.css"/>
+  <script src="assets/jquery-1.8.2.js"></script>
+  <script src="../jquery-jvectormap.js"></script>
+  <script src="../lib/jquery-mousewheel.js"></script>
 
-@section('title')
-    Dashboard
-@endsection
+  <script src="../src/jvectormap.js"></script>
 
-@section('dashboard', 'active bg-gradient-kopi')
+  <script src="../src/abstract-element.js"></script>
+  <script src="../src/abstract-canvas-element.js"></script>
+  <script src="../src/abstract-shape-element.js"></script>
 
-@section('content')
-<body>
-  <div class="row min-vh-80">
-    <div class="col-12">
-      <div class="card h-100">
-        <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-          <div class="bg-gradient-kopi shadow-kopi border-radius-lg pt-4 pb-3">
-            <h5 class="text-white text-capitalize ps-3">Persebaran Kopi</h5>
-          </div>
-        </div>
-        <div class="card-body">
-            <div style="height: 400px"></div>
-            <div id="vector-map" style="mt-5 width: 600px; height: 400px"></div>
-          <button id="focus-single">Focus on Indonesia</button>
-          <button id="focus-multiple">Focus on Australia and Japan</button>
-          <button id="focus-coords">Focus on Cyprus</button>
-          <button id="focus-init">Return to the initial state</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</body>
-@endsection
-@section('js')
-<link rel="stylesheet" media="all" href="{{ asset('jvectormap/jquery-jvectormap.css') }}"/>
-  <script src="{{ asset('jvectormap/tests/assets/jquery-1.8.2.js')}}"></script>
-  <script src="{{ asset('jvectormap/jquery-jvectormap.js')}}"></script>
-  <script src="{{ asset('jvectormap/lib/jquery-mousewheel.js')}}"></script>
+  <script src="../src/svg-element.js"></script>
+  <script src="../src/svg-group-element.js"></script>
+  <script src="../src/svg-canvas-element.js"></script>
+  <script src="../src/svg-shape-element.js"></script>
+  <script src="../src/svg-path-element.js"></script>
+  <script src="../src/svg-circle-element.js"></script>
+  <script src="../src/svg-image-element.js"></script>
+  <script src="../src/svg-text-element.js"></script>
 
-  <script src="{{ asset('jvectormap/src/jvectormap.js')}}"></script>
+  <script src="../src/vml-element.js"></script>
+  <script src="../src/vml-group-element.js"></script>
+  <script src="../src/vml-canvas-element.js"></script>
+  <script src="../src/vml-shape-element.js"></script>
+  <script src="../src/vml-path-element.js"></script>
+  <script src="../src/vml-circle-element.js"></script>
+  <script src="../src/vml-image-element.js"></script>
 
-  <script src="{{ asset('jvectormap/src/abstract-element.js')}}"></script>
-  <script src="{{ asset('jvectormap/src/abstract-canvas-element.js')}}"></script>
-  <script src="{{ asset('jvectormap/src/abstract-shape-element.js')}}"></script>
+  <script src="../src/map-object.js"></script>
+  <script src="../src/region.js"></script>
+  <script src="../src/marker.js"></script>
 
-  <script src="{{ asset('jvectormap/src/svg-element.js')}}"></script>
-  <script src="{{ asset('jvectormap/src/svg-group-element.js')}}"></script>
-  <script src="{{ asset('jvectormap/src/svg-canvas-element.js')}}"></script>
-  <script src="{{ asset('jvectormap/src/svg-shape-element.js')}}"></script>
-  <script src="{{ asset('jvectormap/src/svg-path-element.js')}}"></script>
-  <script src="{{ asset('jvectormap/src/svg-circle-element.js')}}"></script>
-  <script src="{{ asset('jvectormap/src/svg-image-element.js')}}"></script>
-  <script src="{{ asset('jvectormap/src/svg-text-element.js')}}"></script>
+  <script src="../src/vector-canvas.js"></script>
+  <script src="../src/simple-scale.js"></script>
+  <script src="../src/ordinal-scale.js"></script>
+  <script src="../src/numeric-scale.js"></script>
+  <script src="../src/color-scale.js"></script>
+  <script src="../src/legend.js"></script>
+  <script src="../src/data-series.js"></script>
+  <script src="../src/proj.js"></script>
+  <script src="../src/map.js"></script>
 
-  <script src="{{ asset('jvectormap/src/vml-element.js')}}"></script>
-  <script src="{{ asset('jvectormap/src/vml-group-element.js')}}"></script>
-  <script src="{{ asset('jvectormap/src/vml-canvas-element.js')}}"></script>
-  <script src="{{ asset('jvectormap/src/vml-shape-element.js')}}"></script>
-  <script src="{{ asset('jvectormap/src/vml-path-element.js')}}"></script>
-  <script src="{{ asset('jvectormap/src/vml-circle-element.js')}}"></script>
-  <script src="{{ asset('jvectormap/src/vml-image-element.js')}}"></script>
-
-  <script src="{{ asset('jvectormap/src/map-object.js')}}"></script>
-  <script src="{{ asset('jvectormap/src/region.js')}}"></script>
-  <script src="{{ asset('jvectormap/src/marker.js')}}"></script>
-
-  <script src="{{ asset('jvectormap/src/vector-canvas.js')}}"></script>
-  <script src="{{ asset('jvectormap/src/simple-scale.js')}}"></script>
-  <script src="{{ asset('jvectormap/src/ordinal-scale.js')}}"></script>
-  <script src="{{ asset('jvectormap/src/numeric-scale.js')}}"></script>
-  <script src="{{ asset('jvectormap/src/color-scale.js')}}"></script>
-  <script src="{{ asset('jvectormap/src/legend.js')}}"></script>
-  <script src="{{ asset('jvectormap/src/data-series.js')}}"></script>
-  <script src="{{ asset('jvectormap/src/proj.js')}}"></script>
-  <script src="{{ asset('jvectormap/src/map.js')}}"></script>
-
-  <script src="{{ asset('jvectormap/tests/assets/jquery-jvectormap-world-mill-en.js')}}"></script>
+  <script src="assets/jquery-jvectormap-world-mill-en.js"></script>
   <script>
     jQuery.noConflict();
     jQuery(function(){
       var $ = jQuery;
-      $(document).ready(function() {
+
       $('#focus-single').click(function(){
-        $('#vector-map').vectorMap('set', 'focus', {region: 'ID', animate: true});
+        $('#map1').vectorMap('set', 'focus', {region: 'AU', animate: true});
       });
       $('#focus-multiple').click(function(){
-        $('#vector-map').vectorMap('set', 'focus', {regions: ['AU', 'JP'], animate: true});
+        $('#map1').vectorMap('set', 'focus', {regions: ['AU', 'JP'], animate: true});
       });
       $('#focus-coords').click(function(){
-        $('#vector-map').vectorMap('set', 'focus', {scale: 7, lat: 35, lng: 33, animate: true});
+        $('#map1').vectorMap('set', 'focus', {scale: 7, lat: 35, lng: 33, animate: true});
       });
       $('#focus-init').click(function(){
-        $('#vector-map').vectorMap('set', 'focus', {scale: 1, x: 0.5, y: 0.5, animate: true});
+        $('#map1').vectorMap('set', 'focus', {scale: 1, x: 0.5, y: 0.5, animate: true});
       });
-    
-      $('#vector-map').vectorMap({
-        map: "world_mill_en",
+      $('#map1').vectorMap({
+        map: 'world_mill_en',
         panOnDrag: true,
         focusOn: {
           x: 0.5,
@@ -290,9 +261,16 @@
             }
           }]
         }
-      })
-      }
-      );
+      });
     })
   </script>
-@endsection
+</head>
+<body>
+  <div style="height: 400px"></div>
+  <div id="map1" style="width: 600px; height: 400px"></div>
+  <button id="focus-single">Focus on Australia</button>
+  <button id="focus-multiple">Focus on Australia and Japan</button>
+  <button id="focus-coords">Focus on Cyprus</button>
+  <button id="focus-init">Return to the initial state</button>
+</body>
+</html>
