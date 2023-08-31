@@ -7,32 +7,25 @@
 @section('dashboard', 'active bg-gradient-kopi')
 
 @section('content')
-<body class="g-sidenav-show  bg-gray-200">
-    <div class="container-fluid py-4">
-        <div class="row min-vh-80">
-            <div class="col-12">
-                <div class="card h-100">
-                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                    <div class="bg-gradient-kopi shadow-kopi border-radius-lg pt-4 pb-3">
-                    <h5 class="text-white text-capitalize ps-3">Persebaran Kopi</h5>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div id="vector-map" class="mt-5 min-height-500"></div>
-                </div>
-                </div>
-            </div>
+  <div class="row min-vh-80">
+    <div class="col-12">
+      <div class="card h-100">
+        <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+          <div class="bg-gradient-kopi shadow-kopi border-radius-lg pt-4 pb-3">
+            <h5 class="text-white text-capitalize ps-3">Persebaran Kopi</h5>
+          </div>
         </div>
+        <div class="card-body">
+          <div id="vector-map" class="mt-5 min-height-500"></div>
+        </div>
+      </div>
     </div>
+  </div>
 
-    <!--   Core JS Files   -->
-    <script src="../assets/js/core/popper.min.js"></script>
-    <script src="../assets/js/core/bootstrap.min.js"></script>
-    <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
-    <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
-    <script src="../assets/js/plugins/world.js"></script>
+@endsection
+@section('js')
+<script src="{{ asset('assets/js/plugins/world.js')}}"></script>
     <script>
-      // Initialize the vector map
       var map = new jsVectorMap({
         selector: "#vector-map",
         map: "world_merc",
@@ -75,23 +68,6 @@
             fill: "E91E63"
           }
         },
-  
-  
       });
     </script>
-    <script>
-      var win = navigator.platform.indexOf('Win') > -1;
-      if (win && document.querySelector('#sidenav-scrollbar')) {
-        var options = {
-          damping: '0.5'
-        }
-        Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
-      }
-    </script>
-    <!-- Github buttons -->
-    <script async defer src="https://buttons.github.io/buttons.js"></script>
-    <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
-    <script src="../assets/js/material-dashboard.min.js?v=3.1.0"></script>
-  </body>
-    
 @endsection
