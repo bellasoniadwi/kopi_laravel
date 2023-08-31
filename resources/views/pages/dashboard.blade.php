@@ -76,6 +76,7 @@
     
       $('#vector-map').vectorMap({
         map: "world_mill_en",
+        backgroundColor: "#C8EEFF",
         panOnDrag: true,
         zoomOnScroll: false,
         zoomButtons: true,
@@ -88,8 +89,9 @@
           animate: true
         },
         series: {
+          
           regions: [{
-            scale: ['#C8EEFF', '#0071A4'],
+            scale: ['#80ed82', '#084a09'],
             normalizeFunction: 'polynomial',
             values: {
               "AF": 16.63,
