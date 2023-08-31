@@ -18,8 +18,10 @@
         </div>
         <div class="card-body">
           <div id="vector-map" style="mt-5 width: 700px; height: 500px"></div>
-        </div>
+          <button class="btn btn-lg bg-gradient-kopi btn-lg w-20 mt-4 mb-0" id="focus-single">Indonesia</button>
+          <button class="btn btn-lg bg-gradient-kopi btn-lg w-20 mt-4 mb-0" id="focus-init">Seluruh Dunia</button>
       </div>
+    </div>
     </div>
   </div>
 </body>
@@ -73,6 +75,12 @@
     jQuery(function(){
       var $ = jQuery;
       $(document).ready(function() {
+        $('#focus-single').click(function(){
+          $('#vector-map').vectorMap('set', 'focus', {region: 'ID', animate: true});
+        });
+        $('#focus-init').click(function(){
+          $('#vector-map').vectorMap('set', 'focus', {scale: 1, x: 0.5, y: 0.5, animate: true});
+        });
     
       $('#vector-map').vectorMap({
         map: "world_mill_en",
