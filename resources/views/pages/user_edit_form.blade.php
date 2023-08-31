@@ -48,8 +48,8 @@
                             <label class="form-label"></label>
                             <select class="form-control has-feedback-right" id="role" name="role" value="{{ old('role') }}">
                                 <option value="">--Pilih Role--</option>
-                                <option value="Pengawas" >Pengawas</option>
-                                <option value="Petani" >Petani</option>
+                                <option value="Pengawas" @if ($user->get('role') == "Pengawas")selected @endif>Pengawas</option>
+                                <option value="Petani" @if ($user->get('role') == "Petani")selected @endif>Petani</option>
                             </select>
                         </div>
                         @endcan
