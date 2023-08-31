@@ -94,7 +94,6 @@ class UserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255'],
             'password' => ['required', 'string', 'min:8'],
-            // 'role' => ['required', 'string', 'max:255'],
         ]);
     }
 
@@ -182,7 +181,6 @@ class UserController extends Controller
     public function edit_form($documentId) {
         $userCollection = app('firebase.firestore')->database()->collection('users');
 
-        // Mengambil dokumen dari collection dan mengubahnya menjadi array
         $userDocuments = $userCollection->documents();
         $list_user = [];
         foreach ($userDocuments as $document) {

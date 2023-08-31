@@ -21,23 +21,33 @@
                 {{-- <p class="mb-0">Enter your email and password to register</p> --}}
                 {{-- </div> --}}
                 <div class="card-body">
-                    <form role="form" method="POST" action="{{ route('user.create') }}" enctype="multipart/form-data">
+                    <form role="form" method="POST" action="{{ route('user.update', $documentId) }}" enctype="multipart/form-data">
                         @csrf
                         <div class="input-group input-group-outline mb-3">
                             <label class="form-label {{ $user->get('name') ? 'active' : '' }}">Name</label>
                             <input type="text" id="name" name="name"
                                 class="form-control @error('name') is-invalid @enderror" value="{{ $user->get('name') }}"
                                 required autocomplete="name">
+                            @error('name')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                         <div class="input-group input-group-outline mb-3">
                             <label class="form-label {{ $user->get('email') ? 'active' : '' }}">Email</label>
                             <input type="email" id="email" name="email"
                                 class="form-control @error('email') is-invalid @enderror" value="{{ $user->get('email') }}"
                                 autocomplete="email" readonly>
+                            @error('email')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                         @can('pengawas')
                         <div class="input-group input-group-outline mb-3">
-                            <label class="form-label {{ $user->get('email') ? 'active' : '' }}">Role</label>
+                            <label class="form-label {{ $user->get('role') ? 'active' : '' }}">Role</label>
                             <input type="text" id="role" name="role"
                                 class="form-control @error('role') is-invalid @enderror" value="{{ $user->get('role') }}"
                                 autocomplete="role" readonly>
@@ -51,6 +61,11 @@
                                 <option value="Pengawas" @if ($user->get('role') == "Pengawas")selected @endif>Pengawas</option>
                                 <option value="Petani" @if ($user->get('role') == "Petani")selected @endif>Petani</option>
                             </select>
+                            @error('role')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                         @endcan
                         {{-- <div class="input-group input-group-outline mb-3">
