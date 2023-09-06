@@ -11,6 +11,7 @@ use Kreait\Firebase\Contract\Auth;
 use Kreait\Firebase\Exception\FirebaseException;
 use Kreait\Laravel\Firebase\Facades\Firebase;
 use RealRashid\SweetAlert\Facades\Alert;
+use PhpOffice\PhpSpreadsheet\IOFactory as PHPExcel_IOFactory;
 
 class UserController extends Controller
 {
@@ -272,4 +273,69 @@ class UserController extends Controller
         }
     }
     // END FUNCTION DELETE FOR FIRESTORE COLLECTIONS USERS AND USERS AUTHENTICATION
+
+    public function importExcel(Request $request)
+    {
+        $uploadedFile = $request->file('users_excel');
+
+        // Load the Excel file
+        $objPHPExcel = PHPExcel_IOFactory::load($uploadedFile);
+        $worksheet = $objPHPExcel->getActiveSheet();
+
+        // Initialize Firestore
+        $firestore = new FirestoreClient([
+            'projectId' => 'kopi-sinarindo',
+        ]);
+
+        // Get all rows starting from the 2nd row (assuming the 1st row is headers)
+        $excelData = $worksheet->toArray(null, true, true, true);
+        $skipFirstRow = true;
+
+        // Iterate through each row and add it to Firestore
+        foreach ($excelData as $rowData) {
+            if ($skipFirstRow) {
+                $skipFirstRow = false;
+                continue;
+            }
+
+            $email = $rowData['B'];
+
+            // Cek email telah terpakai/belum
+            $existingUser = $this->findUserByEmail($firestore, $email);
+
+            // email belum terpakai
+            if (!$existingUser) {
+                $firebaseData = [
+                    'name' => $rowData['A'],
+                    'email' => $email,
+                    'password' => $rowData['B'],
+                    'role' => $rowData['C'],
+                ];
+
+                // Add the data to Firestore
+                $createdUser = $this->auth->createUser($firebaseData);
+
+                // Specify the Firestore collection
+                $collection = $firestore->collection('users')->document($createdUser->uid);
+                $collection->set([
+                    'name' => $rowData['A'],
+                    'email' => $email,
+                    'role' => $rowData['C'],
+                ]);
+            }
+        }
+        return redirect()->back()->with('success', 'Data akun berhasil diimport');
+    }
+
+    private function findUserByEmail($firestore, $email)
+    {
+        $query = $firestore->collection('users')->where('email', '=', $email);
+        $documents = $query->documents();
+
+        foreach ($documents as $document) {
+            return $document;
+        }
+
+        return null;
+    }
 }

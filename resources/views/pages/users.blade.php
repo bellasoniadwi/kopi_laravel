@@ -8,6 +8,20 @@
 
 @section('content')
 <div class="row">
+  <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+    <a href="#" class="btn btn-success">Export Excel</a>
+  </div>
+  <div class="col-xl-9 col-sm-6 mb-xl-0 mb-8">
+    <form action="{{ route('import.users') }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        <div class="form-group d-flex justify-content-end">
+            <div class="custom-file">
+                    <input type="file" name="users_excel" class="custom-file-input" id="customFile" accept=".xlsx, .xls" required>
+                    <button class="btn btn-success ml-2" type="submit">Import</button>
+            </div>
+        </div>
+    </form>
+</div>
     <div class="col-12">
       <div class="card my-4">
         <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
@@ -65,4 +79,37 @@
       </div>
     </div>
   </div>
+@endsection
+@section('js')
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script type="text/javascript">
+ 
+     $('.show_confirm').click(function(event) {
+          var form =  $(this).closest("form");
+          var name = $(this).data("name");
+          event.preventDefault();
+          swal({
+              title: `Yakin ingin menghapus data akun?`,
+              text: "Data ini akan terhapus permanen setelah anda menyetujui pesan ini",
+              icon: "warning",
+              buttons: true,
+              dangerMode: true,
+          })
+          .then((willDelete) => {
+            if (willDelete) {
+              form.submit();
+            } else {
+                swal("Akun batal dihapus");
+            }
+          });
+      });
+
+      $(document).ready(function() {
+            // Tampilkan SweetAlert setelah proses import selesai
+            @if (Session::has('success'))
+                swal("Success", "{{ Session::get('success') }}", "success");
+            @endif
+        });
+  
+</script>
 @endsection
