@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Session;
 use Kreait\Firebase\Exception\FirebaseException;
 use Kreait\Laravel\Firebase\Facades\Firebase;
 use RealRashid\SweetAlert\Facades\Alert;
+use PhpOffice\PhpSpreadsheet\IOFactory as PHPExcel_IOFactory;
 
 class KopiController extends Controller
 {
@@ -167,5 +168,55 @@ class KopiController extends Controller
     public function exportExcel()
     {
         return Excel::download(new KopiExport(), 'data_kopi.xlsx');
+    }
+
+    public function importExcel(Request $request)
+    {
+        $uploadedFile = $request->file('kopi_excel');
+
+        $objPHPExcel = PHPExcel_IOFactory::load($uploadedFile);
+        $worksheet = $objPHPExcel->getActiveSheet();
+
+        $firestore = new FirestoreClient([
+            'projectId' => 'kopi-sinarindo',
+        ]);
+
+        $excelData = $worksheet->toArray(null, true, true, true);
+        $skipFirstRow = true;
+
+        foreach ($excelData as $rowData) {
+            if ($skipFirstRow) {
+                $skipFirstRow = false;
+                continue;
+            }
+
+            $jenis = $rowData['A'];
+            $existingData = $this->findKopiByJenis($firestore, $jenis);
+
+            if (!$existingData) {
+                $firebaseData = [
+                    'jenis' => $jenis,
+                    'deskripsi' => $rowData['B'],
+                    'foto' => $rowData['C'],
+                ];
+
+                // Add the data to Firestore
+                $collection = $firestore->collection('kopis')->document(Helper::IdKopiGenerator());
+                $collection->set($firebaseData);
+            }
+        }
+        return redirect()->back()->with('success', 'Data Kopi Berhasil Diimport');
+    }
+
+    private function findKopiByJenis($firestore, $jenis)
+    {
+        $query = $firestore->collection('kopis')->where('jenis', '=', $jenis);
+        $documents = $query->documents();
+
+        foreach ($documents as $document) {
+            return $document;
+        }
+
+        return null;
     }
 }

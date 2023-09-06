@@ -17,7 +17,7 @@
                     <form id="kopiForm" role="form" method="POST" action="{{ route('kopi.update', $documentId) }}" enctype="multipart/form-data">
                         @csrf
                         <div class="input-group input-group-outline mb-3">
-                            <label class="form-label {{ old('jenis') ? 'active' : '' }}">Jenis</label>
+                            <label class="form-label {{ $kopi->get('jenis') ? 'active' : '' }}">Jenis</label>
                             <input type="text" id="jenis" name="jenis"
                                 class="form-control @error('jenis') is-invalid @enderror" value="{{ $kopi->get('jenis') }}"
                                 required autocomplete="jenis" autofocus>
@@ -28,7 +28,7 @@
                             @enderror
                         </div>
                         <div class="input-group input-group-outline mb-3">
-                            <label class="form-label {{ old('deskripsi') ? 'active' : '' }}">Deskripsi</label>
+                            <label class="form-label {{ $kopi->get('deskripsi') ? 'active' : '' }}">Deskripsi</label>
                             <input type="text" id="deskripsi" name="deskripsi"
                                 class="form-control @error('deskripsi') is-invalid @enderror" value="{{ $kopi->get('deskripsi') }}"
                                 required autocomplete="deskripsi" autofocus>

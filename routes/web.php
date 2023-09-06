@@ -56,7 +56,10 @@ Route::group(['middleware' => ['auth', 'notpetani']], function () {
     Route::delete('/delete-kopi/{id}', [KopiController::class, 'delete'])->name('kopi.delete');
     Route::delete('/delete-record/{id}', [RecordController::class, 'delete'])->name('record.delete');
     Route::delete('/delete-user/{id}', [UserController::class, 'delete'])->name('user.delete');
-    
+
+    // import
+    Route::post('/import-kopi', [KopiController::class, 'importExcel'])->name('import.kopi');
+    Route::post('/import-users', [UserController::class, 'importExcel'])->name('import.users');
 });
 
 
