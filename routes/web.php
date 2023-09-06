@@ -51,6 +51,7 @@ Route::group(['middleware' => ['auth', 'notpetani']], function () {
     // export
     Route::get('/export-record', [RecordController::class, 'exportExcel'])->name('export.record');
     Route::get('/export-kopi', [KopiController::class, 'exportExcel'])->name('export.kopi');
+    Route::get('/export-users', [UserController::class, 'exportExcel'])->name('export.users');
 
     // delete
     Route::delete('/delete-kopi/{id}', [KopiController::class, 'delete'])->name('kopi.delete');

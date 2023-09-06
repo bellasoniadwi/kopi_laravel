@@ -9,7 +9,7 @@
 @section('content')
 <div class="row">
   <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-    <a href="#" class="btn btn-success">Export Excel</a>
+    <a href="{{ route('export.users') }}" class="btn btn-success">Export Excel</a>
   </div>
   <div class="col-xl-9 col-sm-6 mb-xl-0 mb-8">
     <form action="{{ route('import.users') }}" method="POST" enctype="multipart/form-data">

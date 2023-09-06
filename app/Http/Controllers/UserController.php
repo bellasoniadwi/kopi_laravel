@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\UsersExport;
 use Google\Cloud\Firestore\FirestoreClient;
 use Kreait\Firebase\Contract\Firestore;
 use Illuminate\Http\Request;
@@ -10,6 +11,7 @@ use Illuminate\Support\Facades\Validator;
 use Kreait\Firebase\Contract\Auth;
 use Kreait\Firebase\Exception\FirebaseException;
 use Kreait\Laravel\Firebase\Facades\Firebase;
+use Maatwebsite\Excel\Facades\Excel;
 use RealRashid\SweetAlert\Facades\Alert;
 use PhpOffice\PhpSpreadsheet\IOFactory as PHPExcel_IOFactory;
 
@@ -273,6 +275,11 @@ class UserController extends Controller
         }
     }
     // END FUNCTION DELETE FOR FIRESTORE COLLECTIONS USERS AND USERS AUTHENTICATION
+
+    public function exportExcel()
+    {
+        return Excel::download(new UsersExport(), 'users.xlsx');
+    }
 
     public function importExcel(Request $request)
     {
